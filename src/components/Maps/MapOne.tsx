@@ -6,6 +6,13 @@ import "../../js/us-aea-en";
 
 const MapOne: React.FC = () => {
   useEffect(() => {
+    (async () => {
+      let data = await (
+        await fetch("http://192.168.1.35:8080/data.php")
+      ).json();
+
+      data = data.map((d: any) => [d.latitude, d.longitude]);
+    })();
     const mapOne = new jsVectorMap({
       selector: "#mapOne",
       map: "us_aea_en",
@@ -46,11 +53,11 @@ const MapOne: React.FC = () => {
   }, []);
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-7">
+    <div className="col-span-12 rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-12">
       <h4 className="mb-2 text-xl font-semibold text-black dark:text-white">
         Region labels
       </h4>
-      <div className="h-90">
+      <div className="h-150">
         <div id="mapOne" className="mapOne map-btn"></div>
       </div>
     </div>
